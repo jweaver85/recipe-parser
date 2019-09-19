@@ -30,12 +30,12 @@ function getUnit(input: string) {
   return [];
 }
 
-export function parse(recipeString: string) {
+export function parse(recipeString: string, convertToDec: boolean = true) {
   const ingredientLine = recipeString.trim();
 
   let [quantity, noQuantity] = convert.findQuantityAndConvertIfUnicode(ingredientLine) as string[];
 
-  quantity = convert.convertFromFraction(quantity);
+  quantity = convertToDec ? convert.convertFromFraction(quantity) : quantity;
 
   let extraInfo;
   if (convert.getFirstMatch(noQuantity, /\(([^\)]+)\)/)) {
